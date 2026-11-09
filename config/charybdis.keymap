@@ -79,7 +79,7 @@
          * ========================= */
         layer_1 {
             bindings = <
-                &kp ESC         &none      &kp LC(W)  &kp LG(E)   &kp LG(R)  &kp LC(T)          &kp LC(Y)  &kp END      &kp END    &kp LBKT   &kp RBKT   &kp INT_YEN
+                &kp ESC         &none      &kp LC(W)  &kp LG(E)   &kp LG(R)  &kp LC(T)          &kp LC(Y)  &kp END      &kp END    &kp RPAR   &kp MINUS   &kp INT_YEN
                 &kp CAPS        &none      &kp PSCRN  &kp LG(D)   &kp LC(C)  &kp LC(X)          &kp DEL    &kp LC(V)    &kp DEL    &kp LG(L)  &none      &kp LS(BSLH)
                 &kp LCTRL       &kp LC(Z)  &none      &kp LC(Z)   &kp LC(A)  &kp BACKSPACE      &kp LC(N)  &kp LC(V)    &kp COMMA  &kp DOT    &kp FSLH   &kp UNDERSCORE
 
