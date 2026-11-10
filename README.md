@@ -1,47 +1,39 @@
-zmk-config for charybdis (3x6)
-nicenanov2
-GERBER-adapter_Y13
-left 3×6＋5
-right 3×6＋3
+# Charybdis 3x6 — nice!nano v2 / GERBER-adapter_Y13
 
-## 左ロータリーエンコーダー（EC11互換・機械式）
+Left: 3×6 + 5 thumb keys + 5-way switch.
+Right: 3×6 + 3 thumb keys + PMW3610 trackball (central).
 
-左側は設定済みです。キーの割り当ては変更していません。
+## 左5方向スイッチ（AE-SKRHAAE010-BO）
 
-| エンコーダー端子 | nice!nano v2 のGPIO | Pro Micro互換表記 |
-| --- | --- | --- |
-| A相 | P1.11 | D14 |
-| B相 | P1.13 | D15 |
-| C / COM（回転接点の共通端子） | GND | GND |
+ロータリーエンコーダーを廃止し、上下左右＋中央押し込みの5入力に変更しました。
+従来の44キーの割り当ては維持しています。追加5入力は全レイヤー共通です。
 
-端子の並びは製品のデータシートで確認してください。A/B/Cは回転用接点です。
-押し込みスイッチの端子とは別です。押し込み動作は設定していません。
-上の配線は機械式の接点を持つエンコーダー用です。
-基板付きモジュールでは電源や出力電圧を別途確認してください。
+| 基板端子 | nice!nano v2 GPIO | 互換表記 | 動作 |
+| --- | --- | --- | --- |
+| UP | P1.11 | D14 | 上矢印 |
+| DW | P1.13 | D15 | 下矢印 |
+| LT | P0.08 | D0 | 左矢印 |
+| RT | P0.06 | D1 | 右矢印 |
+| SW | P0.17 | D2 | マウス左クリック |
+| +V | VCC (3.3V) | VCC | 基板の10kΩプルアップ電源 |
+| GND | GND | GND | 接地（基板のGNDは2個のうち1個を接続） |
 
-- 全レイヤーで縦スクロールします。
-- 回転方向が逆なら、A相とB相の配線を入れ替えてください。
-- 回転量は現在 `steps = <12>`、`triggers-per-rotation = <10>` です。
-  1クリックごとの動作量は製品のパルス数・クリック数に合わせて実機で調整してください。
-- `charybdis.dtsi` でピンと回転量を定義し、
-  `charybdis_left.overlay` と `charybdis_left.conf` で左のみ有効化しています。
-- 左エンコーダーの信号は右の親機に送られます。通常使用には左右の接続が必要です。
++Vは公式nice!nano v2のVCC（3.3V）に接続してください。RAW・電池＋・5Vには接続しません。
+互換ボードの場合はその仕様と実際の電圧を確認してください。
+既存のエンコーダーを取り外し、電源を切った状態で配線してください。
 
-### 左側で現在のキー・エンコーダー設定が使用していないヘッダGPIO
+左のマトリクスと5個の独立したアクティブLOW入力を合成して読み取ります。
+追加入力の順番はUP / DW / LT / RT / SWで、キーマップ末尾の5個です。
+5msの押下・解放デバウンスを設定しています。
+左側でVCC用の外部電源機能を有効にしています。
 
-| GPIO | Pro Micro互換表記 |
-| --- | --- |
-| P0.08 | D0 |
-| P0.06 | D1 |
-| P0.17 | D2 |
-| P0.20 | D3 |
-| P1.06 | D9 |
-| P0.10 | D16 |
+左右両方の最新ファームウェアを書き込んでください。
+PCへの接続は右側です。実機で既存キーと追加5入力の押下・解放を確認してください。
 
-これはファームウェア上の未使用一覧です。アダプター基板での接続や追加配線は別途確認してください。
-P1.11/D14 と P1.13/D15 は左エンコーダーに予約済みです。
-右側では同じGPIOをトラックボールに使用するため、この表は左側専用です。
+残りの左ヘッダGPIO（設定上未使用）: P0.20/D3、P1.06/D9、P0.10/D16。
+アダプター基板や追加配線による使用状況は別途確認してください。
 
 参考:
-- [nice!nano公式端子表](https://nicekeyboards.com/docs/nice-nano/pinout-schematic/)
-- [ZMK v0.3のPro Micro端子対応](https://github.com/zmkfirmware/zmk/blob/v0.3/app/boards/arm/nice_nano/arduino_pro_micro_pins.dtsi)
+- [モジュール回路図](https://akizukidenshi.com/goodsaffix/AE-SKRHAAE010-BO.pdf)
+- [nice!nano仕様（VCCは3.3V）](https://nicekeyboards.com/docs/nice-nano/)
+- [nice!nano端子図](https://nicekeyboards.com/docs/nice-nano/pinout-schematic/)

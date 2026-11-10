@@ -33,21 +33,6 @@
 };
 
 / {
-    /* Encoder behaviors */
-    scroll_vertical_encoder: scroll_vertical_encoder {
-        compatible = "zmk,behavior-sensor-rotate";
-        #sensor-binding-cells = <0>;
-        bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-        tap-ms = <100>;
-    };
-
-    scroll_horizontal_encoder: scroll_horizontal_encoder {
-        compatible = "zmk,behavior-sensor-rotate";
-        #sensor-binding-cells = <0>;
-        bindings = <&msc SCRL_LEFT>, <&msc SCRL_RIGHT>;
-        tap-ms = <100>;
-    };
-
     behaviors {
     };
 
@@ -65,11 +50,11 @@
 
                                               &kp LALT   &kp SPACE  &mo 1      &mo 2     &kp ENTER
                                                         &mkp MB1   &mkp MB2   &mo 3
+                /* 5-way: UP, DOWN, LEFT, RIGHT, CENTER */
+                &kp UP &kp DOWN &kp LEFT &kp RIGHT &mkp MB1
+
             >;
 
-            sensor-bindings =
-                <&scroll_vertical_encoder>,
-                <&scroll_horizontal_encoder>;
         };
 
         /* =========================
@@ -85,11 +70,11 @@
 
                                               &kp LALT   &kp SPACE  &trans                      &mo 2     &kp ENTER
                                                          &mkp MB1   &mkp MB2                    &mo 3
+                /* 5-way: UP, DOWN, LEFT, RIGHT, CENTER */
+                &kp UP &kp DOWN &kp LEFT &kp RIGHT &mkp MB1
+
             >;
 
-            sensor-bindings =
-                <&scroll_vertical_encoder>,
-                <&scroll_horizontal_encoder>;
         };
 
         /* =========================
@@ -103,11 +88,11 @@
 
                                                       &kp LALT   &kp SPACE  &mo 1                     &trans    &kp ENTER
                                                                  &mkp MB1   &mkp MB2                  &mo 3
+                /* 5-way: UP, DOWN, LEFT, RIGHT, CENTER */
+                &kp UP &kp DOWN &kp LEFT &kp RIGHT &mkp MB1
+
             >;
 
-            sensor-bindings =
-                <&scroll_vertical_encoder>,
-                <&scroll_horizontal_encoder>;
         };
 
         /* =========================
@@ -121,11 +106,11 @@
 
                                                          &kp LALT   &kp SPACE  &mo 1        &mo 2     &kp ENTER
                                                                  &mkp MB1   &mkp MB2        &trans
+                /* 5-way: UP, DOWN, LEFT, RIGHT, CENTER */
+                &kp UP &kp DOWN &kp LEFT &kp RIGHT &mkp MB1
+
             >;
 
-            sensor-bindings =
-                <&scroll_vertical_encoder>,
-                <&scroll_horizontal_encoder>;
         };
     };
 };

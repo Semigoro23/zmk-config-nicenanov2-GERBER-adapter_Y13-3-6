@@ -16,9 +16,41 @@
 		, <&gpio1 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
 		;
 };
-&left_encoder {
-    status = "okay";
-};
+
 //RGB bus
 
 
+
+/ {
+    chosen {
+        zmk,kscan = &left_composite;
+    };
+
+    five_way: five_way {
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+        debounce-press-ms = <5>;
+        debounce-release-ms = <5>;
+        /* UP, DOWN, LEFT, RIGHT, CENTER; each switch closes to GND. */
+        input-gpios = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+                      <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+                      <&gpio0 8  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+                      <&gpio0 6  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+                      <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
+
+    left_composite: left_composite {
+        compatible = "zmk,kscan-composite";
+        rows = <5>;
+        columns = <6>;
+        wakeup-source;
+
+        matrix {
+            kscan = <&kscan0>;
+        };
+        joystick {
+            kscan = <&five_way>;
+            row-offset = <4>;
+        };
+    };
+};
